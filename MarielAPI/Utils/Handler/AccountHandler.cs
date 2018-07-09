@@ -1,6 +1,7 @@
 ﻿using MarielAPI.Helper;
 using MarielAPI.Models.DB;
 using MarielAPI.Models.DTO.Account;
+using MarielAPI.Models.DTO.LoanRequest;
 using MarielAPI.Utils.Helper;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,6 @@ namespace MarielAPI.Utils.Handler
 {
     public class AccountHandler
     {
-
         private marielEntities db = null;
 
         public AccountHandler()
@@ -48,7 +48,7 @@ namespace MarielAPI.Utils.Handler
             {
                 var checkRecord = await db.tblAccounts.FirstOrDefaultAsync(x => x.deleted == null && x.status == "Pending"); // check whether itemgroup name exist or not
                 if (checkRecord != null)
-                    throw new HttpException((int)HttpStatusCode.BadRequest, "You already requested a loan.");
+                    throw new HttpException((int)HttpStatusCode.BadRequest, ConstantHelper.ALREADY_REQUEST_LOAN);
 
                 try
                 {
@@ -62,7 +62,7 @@ namespace MarielAPI.Utils.Handler
                     await DocumentHelper.SaveUploadImage(db, ConstantHelper.document_ItemTableID, record.id, newDTO.idCardBase64);
                     await DocumentHelper.SaveUploadImage(db, ConstantHelper.document_ItemTableID, record.id, newDTO.employmentLetterBase64);
                     await DocumentHelper.SaveUploadImage(db, ConstantHelper.document_ItemTableID, record.id, newDTO.bankAccountBase64);
-                    await SaveToLoanRequest(newDTO, record.id);
+                    await SaveToLoanRequest(newDTO.loanRequest, record.id);
 
                     transaction.Commit();
                     return await SelectByID(record.id);
@@ -76,14 +76,14 @@ namespace MarielAPI.Utils.Handler
         }
 
 
-        private async Task<tblLoanRequest> SaveToLoanRequest(AccountNewDTO accountDTO, int accountID)
+        public async Task<tblLoanRequest> SaveToLoanRequest(LoanRequestBaseDTO loanRequestDTO, int accountID)
         {
             var loanRequest = new tblLoanRequest();
             //db.tblLoanRequests.Add(loanRequest);
             loanRequest.createdDate = DateTime.Now;
             loanRequest.payDate = DateTime.Now;
             var interestRate = 0;
-            switch (accountDTO.loanRequest.payday)
+            switch (loanRequestDTO.payday)
             {
                 case 10:
                     interestRate = 10;
@@ -99,11 +99,11 @@ namespace MarielAPI.Utils.Handler
                     break;
             }
             loanRequest.accountID = accountID;
-            loanRequest.payDay = accountDTO.loanRequest.payday;
-            loanRequest.amount = Decimal.Parse(accountDTO.loanRequest.amount.ToString());
+            loanRequest.payDay = loanRequestDTO.payday;
+            loanRequest.amount = Decimal.Parse(loanRequestDTO.amount.ToString());
             loanRequest.interestRate = interestRate;
-            loanRequest.interestAmount = Decimal.Parse((accountDTO.loanRequest.amount * interestRate / 100).ToString());
-            loanRequest.loanAmount = Decimal.Parse((Decimal.Parse(accountDTO.loanRequest.amount.ToString()) + loanRequest.interestAmount).ToString());
+            loanRequest.interestAmount = Decimal.Parse((loanRequestDTO.amount * interestRate / 100).ToString());
+            loanRequest.loanAmount = Decimal.Parse((Decimal.Parse(loanRequestDTO.amount.ToString()) + loanRequest.interestAmount).ToString());
             db.tblLoanRequests.Add(loanRequest);
             await db.SaveChangesAsync();
             return loanRequest;

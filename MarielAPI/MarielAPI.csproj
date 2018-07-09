@@ -234,6 +234,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Attribute\ErrorLoggerAttribute.cs" />
     <Compile Include="Utils\Handler\AccountHandler.cs" />
+    <Compile Include="Utils\Handler\LoanRequestHandler.cs" />
     <Compile Include="Utils\Helper\ConstantHelper.cs" />
     <Compile Include="Utils\Helper\DocumentHelper.cs" />
     <Compile Include="Utils\Helper\MappingHelper.cs" />
@@ -288,6 +289,7 @@
     <Content Include="Models\DB\MarielModel.edmx.diagram">
       <DependentUpon>MarielModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -12,6 +12,7 @@ namespace MarielAPI.Helper
         public static readonly int pageSize = 20;
 
         public const string accountEndPoint = apiVersion + "accounts";
+        public const string loanReuqestEndPoint = apiVersion + "loanrequests";
 
 
 
@@ -20,5 +21,7 @@ namespace MarielAPI.Helper
 
         public static readonly string LOG_FOLDER = "logs";
         public static readonly string UPLOAD_FOLDER = "uploads";
+
+        public static readonly string ALREADY_REQUEST_LOAN = "You already requested a loan!";
     }
 }

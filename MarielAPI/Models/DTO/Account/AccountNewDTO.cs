@@ -19,6 +19,6 @@ namespace MarielAPI.Models.DTO.Account
         public string bankAccountBase64 { get; set; }
 
         [Required]
-        public LoanRequestNewDTO loanRequest { get; set; }
+        public LoanRequestBaseDTO loanRequest { get; set; }
     }
 }

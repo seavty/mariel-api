@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MarielAPI.Models.DTO.LoanRequest
 {
-    public class LoanRequestViewDTO
+    public class LoanRequestViewDTO: LoanRequestBaseDTO
     {
     }
 }
