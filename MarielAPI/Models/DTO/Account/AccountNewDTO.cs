@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MarielAPI.Models.DTO.Account
 {
-    public class AccountNewDTO
+    public class AccountNewDTO : AccountBaseDTO
     {
         [Required]
         public string idCardBase64 { get; set; }

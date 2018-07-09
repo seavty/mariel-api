@@ -15,6 +15,7 @@ namespace MarielAPI.Models.DTO.LoanRequest
         public int payday { get; set; }
 
         [Required]
+        [MaxLength(100)]
         public string purpose { get; set; }
     }
 }

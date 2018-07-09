@@ -46,7 +46,7 @@ namespace MarielAPI.Utils.Handler
         {
             using (var transaction = db.Database.BeginTransaction())
             {
-                var checkRecord = await db.tblAccounts.FirstOrDefaultAsync(x => x.deleted == null && x.status == "Pending"); // check whether itemgroup name exist or not
+                var checkRecord = await db.tblAccounts.FirstOrDefaultAsync(x => x.deleted == null && x.status == "Pending" && x.phoneNumber == newDTO.phoneNumber); // check whether itemgroup name exist or not
                 if (checkRecord != null)
                     throw new HttpException((int)HttpStatusCode.BadRequest, ConstantHelper.ALREADY_REQUEST_LOAN);
 
@@ -59,9 +59,18 @@ namespace MarielAPI.Utils.Handler
                     db.tblAccounts.Add(record);
                     await db.SaveChangesAsync();
 
+                    var base64s = new List<string>();
+                    base64s.Add(newDTO.idCardBase64);
+                    base64s.Add(newDTO.employmentLetterBase64);
+                    base64s.Add(newDTO.bankAccountBase64);
+
+                    var doc = await DocumentHelper.SaveUploadImage(db, ConstantHelper.document_ItemTableID, record.id, base64s);
+
+                    /*
                     await DocumentHelper.SaveUploadImage(db, ConstantHelper.document_ItemTableID, record.id, newDTO.idCardBase64);
                     await DocumentHelper.SaveUploadImage(db, ConstantHelper.document_ItemTableID, record.id, newDTO.employmentLetterBase64);
                     await DocumentHelper.SaveUploadImage(db, ConstantHelper.document_ItemTableID, record.id, newDTO.bankAccountBase64);
+                    */
                     await SaveToLoanRequest(newDTO.loanRequest, record.id);
 
                     transaction.Commit();
