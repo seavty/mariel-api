@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="marielModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="marielModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sm_doc">
           <Key>
             <PropertyRef Name="docs_docID" />
@@ -91,13 +91,33 @@
           <Property Name="load_DisburstBy" Type="int" />
           <Property Name="load_DisburstOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblPin">
+          <Key>
+            <PropertyRef Name="PinID" />
+          </Key>
+          <Property Name="PinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pins_Deleted" Type="nvarchar" MaxLength="1" />
+          <Property Name="pins_CreatedBy" Type="int" />
+          <Property Name="pins_CreatedDate" Type="datetime" />
+          <Property Name="pins_UpdatedBy" Type="int" />
+          <Property Name="pins_UpdatedDate" Type="datetime" />
+          <Property Name="pins_WorkflowID" Type="int" />
+          <Property Name="pins_WorkflowItemID" Type="int" />
+          <Property Name="pins_ZoneID" Type="int" />
+          <Property Name="pins_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="pins_Status" Type="nvarchar" MaxLength="10" />
+          <Property Name="pins_Date" Type="datetime" />
+          <Property Name="pins_AccountID" Type="int" />
+          <Property Name="pins_isUsed" Type="nvarchar" MaxLength="20" />
+          <Property Name="pins_Phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityContainer Name="marielModelStoreContainer">
           <EntitySet Name="sm_doc" EntityType="Self.sm_doc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAccount" EntityType="Self.tblAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLoanRequest" EntityType="Self.tblLoanRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPin" EntityType="Self.tblPin" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="marielModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -191,7 +211,28 @@
           <EntitySet Name="sm_doc" EntityType="Self.sm_doc" />
           <EntitySet Name="tblAccounts" EntityType="Self.tblAccount" />
           <EntitySet Name="tblLoanRequests" EntityType="Self.tblLoanRequest" />
+          <EntitySet Name="tblPins" EntityType="marielModel.tblPin" />
         </EntityContainer>
+        <EntityType Name="tblPin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deleted" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="createdBy" Type="Int32" />
+          <Property Name="createdDate" Type="DateTime" Precision="3" />
+          <Property Name="updatedBy" Type="Int32" />
+          <Property Name="updatedDate" Type="DateTime" Precision="3" />
+          <Property Name="pins_WorkflowID" Type="Int32" />
+          <Property Name="pins_WorkflowItemID" Type="Int32" />
+          <Property Name="pins_ZoneID" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="accountID" Type="Int32" />
+          <Property Name="isUsed" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="phoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -284,6 +325,27 @@
                 <ScalarProperty Name="loan_Balance" ColumnName="loan_Balance" />
                 <ScalarProperty Name="load_DisburstBy" ColumnName="load_DisburstBy" />
                 <ScalarProperty Name="load_DisburstOn" ColumnName="load_DisburstOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPins">
+            <EntityTypeMapping TypeName="marielModel.tblPin">
+              <MappingFragment StoreEntitySet="tblPin">
+                <ScalarProperty Name="phoneNumber" ColumnName="pins_Phone" />
+                <ScalarProperty Name="isUsed" ColumnName="pins_isUsed" />
+                <ScalarProperty Name="accountID" ColumnName="pins_AccountID" />
+                <ScalarProperty Name="date" ColumnName="pins_Date" />
+                <ScalarProperty Name="status" ColumnName="pins_Status" />
+                <ScalarProperty Name="name" ColumnName="pins_Name" />
+                <ScalarProperty Name="pins_ZoneID" ColumnName="pins_ZoneID" />
+                <ScalarProperty Name="pins_WorkflowItemID" ColumnName="pins_WorkflowItemID" />
+                <ScalarProperty Name="pins_WorkflowID" ColumnName="pins_WorkflowID" />
+                <ScalarProperty Name="updatedDate" ColumnName="pins_UpdatedDate" />
+                <ScalarProperty Name="updatedBy" ColumnName="pins_UpdatedBy" />
+                <ScalarProperty Name="createdDate" ColumnName="pins_CreatedDate" />
+                <ScalarProperty Name="createdBy" ColumnName="pins_CreatedBy" />
+                <ScalarProperty Name="deleted" ColumnName="pins_Deleted" />
+                <ScalarProperty Name="id" ColumnName="PinID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

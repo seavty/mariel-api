@@ -28,5 +28,6 @@ namespace MarielAPI.Models.DB
         public virtual DbSet<sm_doc> sm_doc { get; set; }
         public virtual DbSet<tblAccount> tblAccounts { get; set; }
         public virtual DbSet<tblLoanRequest> tblLoanRequests { get; set; }
+        public virtual DbSet<tblPin> tblPins { get; set; }
     }
 }

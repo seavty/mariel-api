@@ -32,7 +32,7 @@ namespace MarielAPI.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                return Ok(await handler.Create(newDTO));
+                return Ok(await handler.CreateLoanRequest(newDTO));
             }
             catch (HttpException ex)
             {

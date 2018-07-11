@@ -7,7 +7,8 @@
       <Diagram DiagramId="18f072c309fb4778874d8f9ea0e40b8b" Name="Diagram1">
         <EntityTypeShape EntityType="marielModel.sm_doc" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="marielModel.tblAccount" Width="2.625" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="marielModel.tblLoanRequest" Width="2.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="marielModel.tblLoanRequest" Width="2.5" PointX="5.875" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="marielModel.tblPin" Width="1.875" PointX="8.75" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

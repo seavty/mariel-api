@@ -15,6 +15,7 @@ namespace MarielAPI.Models.DTO.Account
         public string phoneNumber { get; set; }
 
         [JsonProperty(Order = 3)]
+        [Required]
         [MaxLength(100)]
         public string email { get; set; }
     }

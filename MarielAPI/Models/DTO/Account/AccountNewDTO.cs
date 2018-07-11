@@ -20,5 +20,7 @@ namespace MarielAPI.Models.DTO.Account
 
         [Required]
         public LoanRequestBaseDTO loanRequest { get; set; }
+
+        public string pin { get; set; }
     }
 }

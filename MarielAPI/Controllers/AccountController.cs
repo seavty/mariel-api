@@ -52,5 +52,23 @@ namespace MarielAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        //-> pinrequest
+        [HttpPost]
+        [Route(ConstantHelper.accountEndPoint)]
+        public async Task<IHttpActionResult> PinRequest([FromUri] int id, [FromUri] string phone)
+        {
+            try
+            {
+
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                return Ok(await handler.createPin(id, phone));
+            }
+            catch (HttpException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
