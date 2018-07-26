@@ -235,7 +235,10 @@ namespace MarielAPI.Utils.Handler
             if (loan != null)
                 throw new HttpException((int)HttpStatusCode.BadRequest, ConstantHelper.ALREADY_REQUEST_LOAN);
 
-            var ePin = db.tblPins.Where(x => x.deleted == null).Take(2).OrderByDescending(o => o.date);
+            //var ePin = db.tblPins.Where(x => x.deleted == null).Take(2).OrderByDescending(o => o.date);
+            var ePin = db.tblPins.Where(x => x.deleted == null &&
+                id != 0 ? x.accountID == id : x.phoneNumber == phone
+            ).OrderByDescending(o => o.date).Take(2);
             if (ePin != null)
             {
                 DateTime dt1 = DateTime.Now;
